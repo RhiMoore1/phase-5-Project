@@ -133,9 +133,37 @@ class ParkByID(Resource):
 
 api.add_resource(ParkByID, '/parks/<int:id>')
 
+# PARKS REVIEWS
+class ParksWithReviews(Resource):
+    def get(self):
+        parks = Park.query.all()
+        parks_with_reviews = []
 
+        for park in parks:
+            park_dict = {
+                "name": park.name,
+                "description": park.description,
+                "location": park.location,
+                "id": park.id,
+                "reviews": []
+            }
 
+            reviews = Review.query.filter_by(park_id=park.id).all()
 
+            for review in reviews:
+                review_dict = {
+                    "title": review.title,
+                    "id": review.id,
+                    "user_id": review.user_id,
+                }
+
+                park_dict["reviews"].append(review_dict)
+
+            parks_with_reviews.append(park_dict)
+
+        return jsonify(parks_with_reviews)
+
+api.add_resource(ParksWithReviews, '/parks_with_reviews')
 
 
 # REVIEWS
@@ -146,7 +174,9 @@ class Reviews(Resource):
         for review in Review.query.all():
             review_dict = {
                 "title": review.title,
-                "id": review.id
+                "id": review.id,
+                "park_id": review.park_id,
+                "user_id": review.user_id,
             }
             reviews.append(review_dict)
 
@@ -182,8 +212,28 @@ class Reviews(Resource):
 
         return jsonify(new_review.to_dict(), 201)
 
-
 api.add_resource(Reviews, '/reviews')
+
+# GET REVIEW BY ID
+class ReviewByID(Resource):
+    def get(self, id):
+
+        review = Review.query.filter_by(id=id).first()
+    
+        review_dict = review.to_dict()
+
+        response = make_response(
+            
+        jsonify(review_dict),
+        200
+        )
+        response.headers["Content-Type"] = "application/json"
+
+        return response
+
+api.add_resource(ReviewByID, '/reviews/<int:id>')
+
+
 
 
 
