@@ -2,7 +2,7 @@
 
 .DS_Store
 .vscode
-
+.db
 ### Node ###
 # Logs
 logs
@@ -53,3 +53,4 @@ jspm_packages
 
 __pycache__
 
+server/instance/app.db
