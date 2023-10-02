@@ -1,0 +1,37 @@
+.navbarContainer {
+  background-color: #f4ece2;
+  padding: 0.5rem;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.header {
+  text-align: left;
+  font-size: xx-large;
+}
+
+.navLi a {
+  text-align: right;
+  color: black;
+  text-decoration: none;
+}
+
+.navLi:hover {
+  background-color: rgb(251, 247, 241);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+.navbar {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.navLi {
+  text-decoration: none;
+  list-style: none;
+  padding: 1rem;
+  font-size: larger;
+  border-radius: 0.25rem;
+  color: black;
+}
+
+
