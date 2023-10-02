@@ -1,8 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
+import ParkContainer from "./ParkContainer"
 
 function App() {
-  return <h1>Project Client</h1>;
+  return (
+    <div>
+      <Router>
+        <Switch>
+          <Route path="/parks">
+            <ParkContainer />
+          </Route>
+        </Switch>
+      </Router>
+    </div>
+  );
 }
 
 export default App;
