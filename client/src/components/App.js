@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import ParkContainer from "./ParkContainer"
 import NavBar from "./NavBar";
 import Home from "./Home";
+import ReviewsContainer from "./ReviewsContainer";
 
 function App() {
   return (
@@ -16,6 +17,9 @@ function App() {
           </Route>
           <Route path="/parks">
             <ParkContainer />
+          </Route>
+          <Route path="/reviews">
+            <ReviewsContainer />
           </Route>
         </Switch>
       </Router>
