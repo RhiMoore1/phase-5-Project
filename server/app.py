@@ -33,6 +33,7 @@ class Parks(Resource):
                 "name": park.name,
                 "description": park.description,
                 "location": park.location,
+                "id": park.id,
             }
             parks.append(park_dict)
         
@@ -44,7 +45,7 @@ class Parks(Resource):
     
         return response  
     
-    
+
 # ADD A PARK
     def post(self):
         data = request.get_json()
@@ -131,6 +132,60 @@ class ParkByID(Resource):
         return response, 200
 
 api.add_resource(ParkByID, '/parks/<int:id>')
+
+
+
+
+
+
+# REVIEWS
+class Reviews(Resource):
+    def get(self):
+        
+        reviews = []
+        for review in Review.query.all():
+            review_dict = {
+                "title": review.title,
+                "id": review.id
+            }
+            reviews.append(review_dict)
+
+            response = make_response(
+                jsonify(reviews),
+                200,
+                {"Content-Type": "application/json"}
+            )
+        return response
+
+
+
+    def post(self):
+        data = request.get_json()
+
+        
+        # user_id = get_authenticated_user_id()
+        # title = data.get('title')
+        # user_id = data.get('user_id')
+        # park_id = data.get('park_id')
+
+        # if not title or not user_id or not park_id:
+        #     return jsonify({"message": "Missing required data"}), 400
+
+        new_review = Review(
+            title=data['title'],
+            user_id=user_id,
+            park_id=data['park_id'],
+            id=data['id'],
+        )
+        db.session.add(new_review)
+        db.session.commit()
+
+        return jsonify(new_review.to_dict(), 201)
+
+
+api.add_resource(Reviews, '/reviews')
+
+
 
 
 
