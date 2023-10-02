@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import ParkContainer from "./ParkContainer"
 import NavBar from "./NavBar";
+import Home from "./Home";
 
 function App() {
   return (
@@ -10,6 +11,9 @@ function App() {
       <NavBar />
       <Router>
         <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
           <Route path="/parks">
             <ParkContainer />
           </Route>
