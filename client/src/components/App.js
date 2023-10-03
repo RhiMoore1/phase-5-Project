@@ -5,8 +5,32 @@ import ParkContainer from "./ParkContainer"
 import NavBar from "./NavBar";
 import Home from "./Home";
 import ReviewsContainer from "./ReviewsContainer";
+import Signup from "./Signup";
+import Login from "./Login";
 
+// session.get("user_id")
 function App() {
+  const [user, setUser] = useState(null);
+  const [errors, setErrors] = useState([])
+
+  useEffect(() => {
+    fetchUser()
+  }, []);
+
+  const fetchUser = () => {
+    fetch("/checkSession")
+      .then(r => {
+        if(r.ok){
+          r.json().then(user => setUser())
+        } else {
+          r.json().then(error => setErrors(error))
+        }
+      })
+      // .then(data => console.log(data))
+  }
+const updateUser = (user) => setUser(user)
+
+
   return (
     <div>
       <NavBar />
@@ -20,6 +44,12 @@ function App() {
           </Route>
           <Route path="/reviews">
             <ReviewsContainer />
+          </Route>
+          <Route path="/signup">
+            <Signup setUser={setUser} updateUser={updateUser} />
+          </Route>
+          <Route path="/login">
+            <Login setUser={setUser} updateUser={updateUser} />
           </Route>
         </Switch>
       </Router>
