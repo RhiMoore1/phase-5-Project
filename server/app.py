@@ -203,7 +203,7 @@ class Reviews(Resource):
 
         new_review = Review(
             title=data['title'],
-            user_id=user_id,
+            user_id=['user_id'],
             park_id=data['park_id'],
             id=data['id'],
         )
@@ -234,7 +234,78 @@ class ReviewByID(Resource):
 api.add_resource(ReviewByID, '/reviews/<int:id>')
 
 
+# SIGNUP
+class Users(Resource):
+    def post(self):
+        data = request.get_json()
+        user = User(
+            username = data['username'],
+            firstname = data['firstname'],
+            lastname = data['lastname'],
+            email = data['email']
+        )
+        user.password_hash = data['password']
 
+        db.session.add(user)
+        db.session.commit()
+
+        session["user_id"] = user.id
+        return user.to_dict(), 201
+api.add_resource(Users, '/signup')
+
+
+@app.route("/login", methods=['POST'])
+def login():
+    data = request.get_json()
+    user = User.query.filter(User.username == data["username"]).first()
+    session['user_id'] = user.id
+    return user.to_dict(), 200
+
+@app.route("/checkSession", methods=['GET'])
+def checkSession():
+    user = User.query.filter(User.id == session.get("user_id")).first()
+    print(user)
+    if user:
+        return user.to_dict(), 200
+    else:
+        return {"errors": ["Unauthorized"]}, 401
+    if session.get('user_id'):
+        print('There is a user logged in')
+    else:
+        print('No session')
+    return {}, 204
+
+# class Signup(Resource):
+#     def post(self):
+#         json_data = request.get_json()
+
+#         user = User(
+#             username = json_data.get('username'),
+#             firstname = json_data.get('firstname'),
+#             lastname = json_data.get('lastname'),
+#             email = json_data.get('email')
+#         )
+        
+#         user.password_hash = json_data.get('password')
+#         db.session.add(user)
+#         db.session.commit()
+
+#         session['user_id'] = user.id
+#         return jsonify(user.to_dict())
+    
+
+
+
+# class CheckSession(Resource):
+#     def get(self):
+#         user = User.query.filter(User.username == session.get('user_username')).first()
+#         if user:
+#             return jsonify(user.to_dict())
+#         else:
+#             return jsonify({'message': '401: Not Authorized'}), 401
+# api.add_resource(CheckSession, '/check_session')
+    
+# api.add_resource(Signup, '/signup')
 
 
 
