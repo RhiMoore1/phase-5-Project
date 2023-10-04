@@ -13,12 +13,12 @@ h2 a {
   text-decoration: none;
   color: #f5ede1;
   -webkit-text-stroke-width: 2.5px;
-  -webkit-text-stroke-color: red;
+  -webkit-text-stroke-color: rgb(187, 11, 11);;
   font-size: 3rem;
 }
 .navLi a {
   text-align: right;
-  color: red;
+  color: rgb(187, 11, 11);;
   text-decoration: none;
 }
 
