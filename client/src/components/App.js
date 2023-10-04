@@ -33,7 +33,7 @@ const updateUser = (user) => setUser(user)
 
   return (
     <div>
-      <NavBar />
+      <NavBar updateUser={updateUser}/>
       <Router>
         <Switch>
           <Route exact path="/">
