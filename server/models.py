@@ -76,7 +76,7 @@ class Park(db.Model, SerializerMixin):
     favorites = db.relationship('Favorite', back_populates='park')
 
     def __repr__(self):
-        return f'Park {self.name}, ID {self.id}, Description {self.description}, Location {self.location}'
+        return f'Park {self.name}, ID {self.id}, Description {self.description}, Location {self.location} image {self.image}'
 
 
 
