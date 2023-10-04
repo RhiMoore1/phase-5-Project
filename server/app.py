@@ -34,6 +34,7 @@ class Parks(Resource):
                 "description": park.description,
                 "location": park.location,
                 "id": park.id,
+                "image": park.image,
             }
             parks.append(park_dict)
         
@@ -54,6 +55,7 @@ class Parks(Resource):
             name=data['name'],
             description=data['description'],
             location=data['location'],
+            image=data['image'],
         )
 
         db.session.add(new_park)
@@ -84,6 +86,7 @@ class ParkByID(Resource):
             "name": park.name,
             "description": park.description,
             "location": park.location,
+            "image": park.image,
         }
 
         response = make_response(
@@ -145,7 +148,8 @@ class ParksWithReviews(Resource):
                 "description": park.description,
                 "location": park.location,
                 "id": park.id,
-                "reviews": []
+                "reviews": [],
+                "image": park.image
             }
 
             reviews = Review.query.filter_by(park_id=park.id).all()
@@ -269,48 +273,11 @@ def checkSession():
         return user.to_dict(), 200
     else:
         return {"errors": ["Unauthorized"]}, 401
-    if session.get('user_id'):
-        print('There is a user logged in')
-    else:
-        print('No session')
-    return {}, 204
-
-# class Signup(Resource):
-#     def post(self):
-#         json_data = request.get_json()
-
-#         user = User(
-#             username = json_data.get('username'),
-#             firstname = json_data.get('firstname'),
-#             lastname = json_data.get('lastname'),
-#             email = json_data.get('email')
-#         )
-        
-#         user.password_hash = json_data.get('password')
-#         db.session.add(user)
-#         db.session.commit()
-
-#         session['user_id'] = user.id
-#         return jsonify(user.to_dict())
-    
-
-
-
-# class CheckSession(Resource):
-#     def get(self):
-#         user = User.query.filter(User.username == session.get('user_username')).first()
-#         if user:
-#             return jsonify(user.to_dict())
-#         else:
-#             return jsonify({'message': '401: Not Authorized'}), 401
-# api.add_resource(CheckSession, '/check_session')
-    
-# api.add_resource(Signup, '/signup')
-
-
-
-
-
+    # if session.get('user_id'):
+    #     print('There is a user logged in')
+    # else:
+    #     print('No session')
+    # return {}, 204
 
 
 if __name__ == '__main__':
