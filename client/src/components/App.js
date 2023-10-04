@@ -30,7 +30,7 @@ function App() {
     fetch("/checkSession")
       .then(r => {
         if(r.ok){
-          r.json().then(user => setUser())
+          r.json().then(user => setUser(user))
         } else {
           r.json().then(error => setErrors(error))
         }
