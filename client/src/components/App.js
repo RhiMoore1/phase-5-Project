@@ -46,7 +46,7 @@ const updateUser = (user) => setUser(user)
       <Router>
         <Switch>
           <Route exact path="/">
-            <Home />
+            <Home setUser={setUser} updateUser={updateUser}/>
           </Route>
           <Route path="/parks">
             <ParkContainer />

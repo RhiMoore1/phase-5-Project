@@ -1,6 +1,19 @@
+.image {
+    display: flex;
+    flex-direction: column;
+}
+
 .home {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center;
+    position: relative;
+}
+
+#forms {
+    display: flex;
+    /* justify-content: space-between; */
+    /* flex-direction: row; */
+    position: absolute;
+    /* max-width: 1rem; */
 }
