@@ -284,6 +284,16 @@ def logout():
 
 
 
+@app.route("/authorized", methods=["GET"])
+def authorized():
+    user = User.query.filter(User.id == session.get("user_id")).first()
+    if user:
+        return user.to_dict(), 200
+    else:
+        return {"errors": ["Unauthorized"]}, 401
+
+
+
 # CREATE COOKIE
 def expiration_date(delay):
     expire_date = datetime.datetime.now()
