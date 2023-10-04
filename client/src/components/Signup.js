@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import '../components/Signup.css';
-
+import { useHistory } from 'react-router-dom';
 
 
 function Signup({ updateUser}) {
@@ -9,7 +9,7 @@ function Signup({ updateUser}) {
     const [firstname, setFirstname] = useState("");
     const [lastname, setLastname] = useState("");
     const [email, setEmail] = useState("");
-  
+    const history = useHistory()
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -32,6 +32,7 @@ function Signup({ updateUser}) {
               r.json().then((user) => {
                 updateUser(user)
                 console.log(user)
+                history.push('/')
                 
               });
             }

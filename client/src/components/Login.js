@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import '../components/Login.css';
+import { useHistory } from 'react-router-dom';
 
 function Login({ updateUser }) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-
+    const history = useHistory()
     function handleSubmit(e) {
         e.preventDefault();
 
@@ -21,6 +22,7 @@ function Login({ updateUser }) {
             .then(user => {
                 updateUser(user)
                 console.log(user)
+                history.push('/')
             });
     }
 
