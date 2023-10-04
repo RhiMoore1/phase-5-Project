@@ -41,7 +41,7 @@ if __name__ == '__main__':
 
 
         parks = []
-        park1 = Park(name="Petrified Forrest National Park", description="Visit this park a see 225-million-year-old folssilized trees", location="Holbrook, Arizona", image="https://www.dirtinmyshoes.com/wp-content/uploads/2018/06/Petrified-Forest-2018-Jasper-Forest-2-e1529537478321-800x543.jpg")
+        park1 = Park(name="Petrified Forrest National Park", description="Visit this park a see 225-million-year-old fossilized trees", location="Holbrook, Arizona", image="https://www.dirtinmyshoes.com/wp-content/uploads/2018/06/Petrified-Forest-2018-Jasper-Forest-2-e1529537478321-800x543.jpg")
         parks.append(park1)
         park2 = Park(name="Saguaro National Park", description="One of the only places in the world to see the famed saguaro cacti", location="Sonoran Desert", image="https://afar.brightspotcdn.com/dims4/default/e9277fb/2147483647/strip/true/crop/2000x1333+0+0/resize/1440x960!/format/webp/quality/90/?url=https%3A%2F%2Fafar-media-production-web.s3.us-west-2.amazonaws.com%2Fbrightspot%2F6e%2Fab%2Fd1e638b0a96815b879ebdd4afdcb%2Foriginal-saguaro-national-park.jpg")
         parks.append(park2)
