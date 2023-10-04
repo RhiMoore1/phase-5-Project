@@ -1,24 +1,49 @@
  .parkcard {
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center;
+    text-align: center; 
     font-family: Arial, Helvetica, sans-serif;
-    max-width: 55vh;
+    max-width: 75vh;
     background-color: #f4ece2;
-    border: 0.5px solid red;
-    padding: 1rem;
+    border: 0.5px solid rgb(187, 11, 11);
+    padding-top: 1rem;
     margin: 1rem;
     border-radius: 0.5rem;
     height: 40rem;
   }
+
+  #parkName {
+    margin-top: 0;
+  }
   
+  #location {
+    font-weight: 900;
+    padding-bottom: 0.75rem;
+  }
+
+  #descriptionP {
+    padding-bottom: 0.75rem;
+    font-size: large
+  }
+
   .parkCardImage {
-      max-width: 100%;
+      max-width: 75%;
       border-radius: 0.25rem;
   }
 
   .parkcard:hover {
     background-color: rgb(251, 247, 241);
-    box-shadow: 0 0 5px red;
+    box-shadow: 0 0 5px rgb(187, 11, 11);
   }
   
-  #descriptionP {
-    font-size: large
+  .reviewList li {
+    color: rgb(187, 11, 11);
+    list-style: none;
+    padding-bottom: 1rem;
+  }
+
+  #reviewerName {
+    color: black;
   }
