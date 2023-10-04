@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect } from 'react';
 import '../components/NavBar.css';
 
 const handleLogout = ({updateUser}) => {
@@ -11,9 +11,24 @@ const handleLogout = ({updateUser}) => {
 
 
 function NavBar() {
- 
+  const [user, setUser] = useState(null);
+  const fetchUser = () => {
+    fetch("/checkSession")
+      .then(r => {
+        if(r.ok){
+          r.json().then(user => setUser(user))
+        } else {
+          // r.json().then(error => setErrors(error))
+        }
+      })
+  }
+  useEffect(() => {
+    fetchUser()
+  }, []);
+
   return (
     <div className='navbarContainer'>
+      { user ? (<p>Welcome {user.username}</p>) : (<p>Not logged in</p>) }
       <h2 className='header'><a href='/'>Parks in Arizona</a></h2>
       <nav className='navbar'>
         <li className='navLi'>
