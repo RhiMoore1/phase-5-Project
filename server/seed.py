@@ -68,7 +68,7 @@ if __name__ == '__main__':
                    'Visited during cactus season-a breathtaking view.', 'Picnicked by the lake, and it felt like a mini-vacation right in town.',
                    'This is my favorite park to visit', 'The guides are always helpful.', 'Great shade spots for summer hikes',
                    'The largest park in the city']
-        for n in range(15):
+        for n in range(10):
             user = rc(users)
             park = rc(parks)
             review_title = rc(review_list)
