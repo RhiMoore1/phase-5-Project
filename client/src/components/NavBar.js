@@ -5,7 +5,7 @@ function NavBar() {
  
   return (
     <div className='navbarContainer'>
-      <h2 className='header'>Parks in Arizona</h2>
+      <h2 className='header'><a href='/'>Parks in Arizona</a></h2>
       <nav className='navbar'>
         <li className='navLi'>
           <a href='/parks'>Parks</a>
