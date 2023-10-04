@@ -11,6 +11,7 @@ from flask_restful import Api, Resource
 from flask_migrate import Migrate
 from sqlalchemy import MetaData
 from dotenv import load_dotenv
+import datetime
 # Local imports
 from config import app, db, api
 # Add your model imports
@@ -155,13 +156,15 @@ class ParksWithReviews(Resource):
             reviews = Review.query.filter_by(park_id=park.id).all()
 
             for review in reviews:
-                review_dict = {
-                    "title": review.title,
-                    "id": review.id,
-                    "user_id": review.user_id,
-                }
+                user = User.query.get(review.user_id)
+                if user:
+                    review_dict = {
+                        "title": review.title,
+                        "id": review.id,
+                        "user_name": user.username,
+                    }
 
-                park_dict["reviews"].append(review_dict)
+                    park_dict["reviews"].append(review_dict)
 
             parks_with_reviews.append(park_dict)
 
@@ -278,6 +281,24 @@ def checkSession():
 def logout():
     session['user_id'] = None
     return {}, 204
+
+
+
+# CREATE COOKIE
+def expiration_date(delay):
+    expire_date = datetime.datetime.now()
+    expire_date = expire_date + datetime.timedelta(days=delay)
+    return expire_date
+
+
+@app.route("/cookies", methods=['GET'])
+def cookies():
+    # import ipdb; ipdb.set_trace()
+    resp = make_response({'message': 'Cookie route'}, 200)
+    resp.set_cookie('new', 'cookie')
+    resp.set_cookie('hello', 'world', expires=expiration_date(90), httponly=True)
+    return resp
+
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
