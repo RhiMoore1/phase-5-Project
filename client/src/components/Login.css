@@ -8,7 +8,7 @@
 .form {
     display: flex;
     flex-direction: column;
-    border: 1px solid black;
+    border: 0.5px solid red;
     border-radius: 0.5rem;
     padding: 0.5rem;
     background-color: rgb(251, 247, 241);
