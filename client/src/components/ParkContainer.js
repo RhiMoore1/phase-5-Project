@@ -33,8 +33,8 @@ function ParkContainer() {
                     return (
                         <ParkCard 
                             key={park.id} 
-                            park={park}      
-                                   
+                            park={park}
+                            
                         />
                     )
                 })}
