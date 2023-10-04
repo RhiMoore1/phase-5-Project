@@ -273,12 +273,11 @@ def checkSession():
         return user.to_dict(), 200
     else:
         return {"errors": ["Unauthorized"]}, 401
-    # if session.get('user_id'):
-    #     print('There is a user logged in')
-    # else:
-    #     print('No session')
-    # return {}, 204
 
+@app.route("/logout", methods=['DELETE'])
+def logout():
+    session['user_id'] = None
+    return {}, 204
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
