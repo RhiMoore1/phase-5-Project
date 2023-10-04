@@ -17,14 +17,14 @@ function App() {
     fetchUser()
   }, []);
 
-  useEffect(() => {
-    fetch('/cookies')
-      .then(r => r.json())
-      .then(data => {
-        console.log(data)
-        console.log(document.cookie)
-      })
-  }, []);
+  // useEffect(() => {
+  //   fetch('/cookies')
+  //     .then(r => r.json())
+  //     .then(data => {
+  //       console.log(data)
+  //       console.log(document.cookie)
+  //     })
+  // }, []);
 
   const fetchUser = () => {
     fetch("/checkSession")
