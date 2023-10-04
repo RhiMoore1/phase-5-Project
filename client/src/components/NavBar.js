@@ -1,6 +1,15 @@
 import React from 'react';
 import '../components/NavBar.css';
 
+const handleLogout = ({updateUser}) => {
+  fetch('/logout', {method: "DELETE"})
+    .then(r => {
+      updateUser(null)
+    })
+  
+}
+
+
 function NavBar() {
  
   return (
@@ -15,6 +24,9 @@ function NavBar() {
         </li>
         <li className='navLi'>
           <a href='/login'>Login</a>
+        </li>
+        <li className='navLi'>
+          <a href='/logout' onClick={handleLogout}>Log Out</a>
         </li>
         <li className='navLi'>
           <a href="/reviews">Reviews</a>
