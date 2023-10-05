@@ -49,27 +49,61 @@ class Parks(Resource):
     
 
 # ADD A PARK
-    def post(self):
-        data = request.get_json()
+    # def post(self):
+    #     data = request.get_json()
 
-        new_park = Park(
-            name=data['name'],
-            description=data['description'],
-            location=data['location'],
-            image=data['image'],
-        )
+    #     new_park = Park(
+    #         name=data['name'],
+    #         description=data['description'],
+    #         location=data['location'],
+    #         image=data['image'],
+    #     )
 
-        db.session.add(new_park)
-        db.session.commit()
+    #     db.session.add(new_park)
+    #     db.session.commit()
 
-        response_dict = new_park.to_dict()
-        response = make_response(
-            jsonify(response_dict),
-            200,
-            {"Content-Type": "application/json"}
-        )
-        return response
+    #     response_dict = new_park.to_dict()
+    #     response = make_response(
+    #         jsonify(response_dict),
+    #         200,
+    #         {"Content-Type": "application/json"}
+    #     )
+    #     return response
 api.add_resource(Parks, '/parks')
+
+
+@app.route("/parks/new", methods=['POST'])
+def post():
+    data = request.get_json()
+
+    new_park = Park(
+        name=data['name'],
+        description=data['description'],
+        location=data['location'],
+        image=data['image'],
+    )
+
+    db.session.add(new_park)
+    db.session.commit()
+
+    # new_review = Review(
+    #     title=data['title'],
+    #     user_id=session.get('user_id'),
+    #     park_id=new_park.id,
+    # )
+
+    response_dict = {
+        "park": new_park.to_dict(),
+        # "review": new_review.to_dict(),
+    }
+
+    response = make_response(
+        jsonify(response_dict),
+        200,
+        {"Content-Type": "application/json"}
+    )
+    return response
+# api.add_resource(Parks, '/parks/new')
 
 
 # PARKS BY ID
