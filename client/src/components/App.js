@@ -7,11 +7,13 @@ import Home from "./Home";
 import ReviewsContainer from "./ReviewsContainer";
 import Signup from "./Signup";
 import Login from "./Login";
+import AddNew from "./AddNew";
 
 // session.get("user_id")
 function App() {
   const [user, setUser] = useState(null);
-  const [errors, setErrors] = useState([])
+  const [errors, setErrors] = useState([]);
+  const [parks, setParks] = useState([])
 
   useEffect(() => {
     fetchUser()
@@ -35,18 +37,23 @@ function App() {
           r.json().then(error => setErrors(error))
         }
       })
-      // .then(data => console.log(data))
   }
 const updateUser = (user) => setUser(user)
 
+const addPark = (park) =>
+    setParks((current) => [...current, park]);
+
 
   return (
+    <Router>
     <div>
       <NavBar updateUser={updateUser}/>
-      <Router>
         <Switch>
           <Route exact path="/">
             <Home />
+          </Route>
+          <Route path="/parks/new">
+            <AddNew addPark={addPark}/>
           </Route>
           <Route path="/parks">
             <ParkContainer />
@@ -59,10 +66,10 @@ const updateUser = (user) => setUser(user)
           </Route>
           <Route path="/login">
             <Login setUser={setUser} updateUser={updateUser} />
-          </Route>
+          </Route> 
         </Switch>
-      </Router>
     </div>
+    </Router>
   );
 }
 
