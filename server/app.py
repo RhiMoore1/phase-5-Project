@@ -77,24 +77,27 @@ def post():
     data = request.get_json()
 
     new_park = Park(
-        name=data['name'],
-        description=data['description'],
-        location=data['location'],
-        image=data['image'],
+        name=data['park']['name'],
+        description=data['park']['description'],
+        location=data['park']['location'],
+        image=data['park']['image'],
     )
 
     db.session.add(new_park)
     db.session.commit()
 
-    # new_review = Review(
-    #     title=data['title'],
-    #     user_id=session.get('user_id'),
-    #     park_id=new_park.id,
-    # )
+    new_review = Review(
+        title=data['review']['title'],
+        user_id=session.get('user_id'),
+        park_id=new_park.id,
+    )
+
+    db.session.add(new_review)
+    db.session.commit()
 
     response_dict = {
         "park": new_park.to_dict(),
-        # "review": new_review.to_dict(),
+        "review": new_review.to_dict(),
     }
 
     response = make_response(

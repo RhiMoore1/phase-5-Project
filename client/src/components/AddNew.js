@@ -14,19 +14,25 @@ function AddNew({ Addpark }) {
     function handleSubmit(e) {
         e.preventDefault()
 
-        fetch("/parks/new", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
+        const formData = {
+            park: {
+            name,
+            description,
+            location,
+            image
+        },
+            review: {
+                title: reviewTitle,
             },
-            body: JSON.stringify({
-              name,
-              description,
-              location,
-              image,
-            
-            }),
-          })
+        };
+
+        fetch('/parks/new', {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(formData)
+        })
             .then((r) => {
             if (r.ok) {
               r.json().then((user) => {
@@ -37,36 +43,6 @@ function AddNew({ Addpark }) {
               });
             }
           });
-
-        // const formData = {
-        //     park: {
-        //     name,
-        //     description,
-        //     location,
-        //     image
-        // },
-        //     review: {
-        //         title: reviewTitle,
-        //     },
-        // };
-
-        // fetch('/parks/new', {
-        //     method: 'POST',
-        //     headers: {
-        //         "Content-Type": "application/json"
-        //     },
-        //     body: JSON.stringify(formData)
-        // })
-        //     .then((r) => {
-        //     if (r.ok) {
-        //       r.json().then((user) => {
-        //         // updateUser(user)
-        //         // console.log(user)
-        //         history.push('/parks')
-                
-        //       });
-        //     }
-        //   });
     }
 
   return (
@@ -106,13 +82,13 @@ function AddNew({ Addpark }) {
                 onChange={(e) => setImage(e.target.value)}
             ></input>
 
-            {/* <label htmlFor="parkReview">Leave Review</label>
+            <label htmlFor="parkReview">Leave Review</label>
             <input 
                 type='text' 
                 id='parkReview'
                 value={reviewTitle}
                 onChange={(e) => setReviewTitle(e.target.value)}
-            ></input> */}
+            ></input>
 
 
             <input type="submit" name="addpark" id="addpark" value="Add park"/>
