@@ -1,0 +1,45 @@
+.authContainer {
+    background-color: #f5ede1;
+    padding: 0.5rem;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  
+  .header {
+    text-align: left;
+    font-size: xx-large;
+  }
+  
+  h2 a {
+    text-decoration: none;
+    color: #f5ede1;
+    -webkit-text-stroke-width: 2.5px;
+    -webkit-text-stroke-color: rgb(187, 11, 11);;
+    font-size: 3rem;
+  }
+  .authLi a {
+    text-align: right;
+    color: rgb(187, 11, 11);;
+    text-decoration: none;
+  }
+  
+  .authLi:hover {
+    background-color: rgb(251, 247, 241);
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+  }
+  
+  .auth {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .authLi {
+    text-decoration: none;
+    list-style: none;
+    padding: 1rem;
+    font-size: larger;
+    border-radius: 0.25rem;
+    color: black;
+  }
+  
+  
+  
