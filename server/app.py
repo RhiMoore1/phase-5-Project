@@ -16,7 +16,7 @@ import datetime
 from config import app, db, api
 # Add your model imports
 from models import User, Park, Review, Favorite, db
-
+CORS(app)
 # Views go here!
 
 @app.route('/')
