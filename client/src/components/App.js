@@ -11,12 +11,10 @@ import AddNew from "./AddNew";
 import Authenticate from "./Authenticate";
 import UpdatePark from "./UpdatePark";
 
-
 function App() {
   const [user, setUser] = useState(null);
   const [errors, setErrors] = useState([]);
   const [parks, setParks] = useState([])
-  const { id } = parks;
 
   useEffect(() => {
     fetchUser()
@@ -24,9 +22,9 @@ function App() {
   }, []);
 
   const fetchParks = () => {
-    fetch("/parks")
+    fetch("http://127.0.0.1:5555/parks")
       .then(r => r.json())
-      .then(setParks)
+      .then((parks) => setParks(parks))
   }
 
   const fetchUser = () => {
@@ -88,7 +86,7 @@ const handleUpdatePark = (updateParkObj) => {
             <AddNew addPark={addPark}/>
           </Route>
           <Route path='/parks/:id'>
-            <UpdatePark onUpdatePark={handleUpdatePark} id={id} parks={parks}/>
+            <UpdatePark onUpdatePark={handleUpdatePark}/>
           </Route>
           <Route path="/parks">
             <ParkContainer />
