@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './AddNew.css';
 import { useHistory } from 'react-router-dom';
 
-function AddNew({ Addpark }) {
+function AddNew({ addPark }) {
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [location, setLocation] = useState("");
@@ -35,11 +35,9 @@ function AddNew({ Addpark }) {
         })
             .then((r) => {
             if (r.ok) {
-              r.json().then((user) => {
-                // updateUser(user)
-                // console.log(user)
+              r.json().then((park) => {
+                addPark(park)
                 history.push('/parks')
-                
               });
             }
           });
@@ -89,7 +87,6 @@ function AddNew({ Addpark }) {
                 value={reviewTitle}
                 onChange={(e) => setReviewTitle(e.target.value)}
             ></input>
-
 
             <input type="submit" name="addpark" id="addpark" value="Add park"/>
         </form>
