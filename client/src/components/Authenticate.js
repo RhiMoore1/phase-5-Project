@@ -1,15 +1,17 @@
 import React, {useState, useEffect } from 'react';
 import '../components/Authenticate.css';
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useHistory } from 'react-router-dom';
+// import { useParams } from 'react-router-dom';
 
 function Authenticate({updateUser}) {
   const [user, setUser] = useState(null);
-  const history = useHistory()
+  const history = useHistory();
+//   const {id} = useParams();
+//   const {id} = parks
 
   const handleLogout = () => {
     fetch('/logout', {method: "DELETE"})
-    //   .then(r => r.json())
       .then(user => {
         console.log(user)
         updateUser(null)
@@ -40,11 +42,14 @@ function Authenticate({updateUser}) {
         <li className='authLi'>
             <Link to="/parks">Parks</Link>
          </li> 
-        <li className='authLi'>
-           <Link to='/logout' onClick={handleLogout}>Log Out</Link>
-         </li>
          <li className='authLi'>
            <Link to='/parks/new'>Add New Park</Link>
+         </li>
+         <li className='authLi'>
+            <Link to='/parks/:id'>Update a Park</Link>
+         </li>
+        <li className='authLi'>
+           <Link to='/logout' onClick={handleLogout}>Log Out</Link>
          </li> 
       </nav>
     </div>
