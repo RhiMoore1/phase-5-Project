@@ -158,19 +158,24 @@ class ParkByID(Resource):
 
         park = Park.query.filter_by(id=id).first()
     
-        data = request.get_json()
-        for attr in data:
-            setattr(park, attr, data[attr])
+        # data = request.get_json()
+        for attr in request.form:
+            setattr(park, attr, request.form[attr])
             
         db.session.add(park)
         db.session.commit()
 
-        response = make_response(
-            jsonify(park.to_dict()),
-            200,
-            {"Content-Type": "application/json"}
-        )
-        return response, 200
+        park_dict = park.to_dict()
+
+        response = make_response(park_dict, 200)
+
+        return response
+        # response = make_response(
+        #     jsonify(park.to_dict()),
+        #     200,
+        #     {"Content-Type": "application/json"}
+        # )
+        # return response, 200
 
 api.add_resource(ParkByID, '/parks/<int:id>')
 
