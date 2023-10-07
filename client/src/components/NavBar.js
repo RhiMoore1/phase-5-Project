@@ -1,23 +1,23 @@
-import React, {useState, useEffect } from 'react';
+import React from 'react';
 import '../components/NavBar.css';
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-function NavBar() {
-  const [user, setUser] = useState(null);
+function NavBar({user}) {
+  // const [user, setUser] = useState(null);
   
-  const fetchUser = () => {
-    fetch("/checkSession")
-      .then(r => {
-        if(r.ok){
-          r.json().then(user => setUser(user))
-        } else {
-          // r.json().then(error => setErrors(error))
-        }
-      })
-  }
-  useEffect(() => {
-    fetchUser()
-  }, []);
+  // const fetchUser = () => {
+  //   fetch("/checkSession")
+  //     .then(r => {
+  //       if(r.ok){
+  //         r.json().then(user => setUser(user))
+  //       } else {
+  //         // r.json().then(error => setErrors(error))
+  //       }
+  //     })
+  // }
+  // useEffect(() => {
+  //   fetchUser()
+  // }, []);
   // const updateUser = (user) => setUser(user)
   return (
       <div className='navbarContainer'>
