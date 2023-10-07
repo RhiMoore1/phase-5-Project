@@ -11,7 +11,7 @@ from config import db, bcrypt
 class User(db.Model, SerializerMixin):
     __tablename__ = 'users'
 
-    serialize_rules = ('-reviews.user', '-parks.user', '-favorites.user')
+    serialize_rules = ('-reviews.user', '-parks.user', '-favorites.user',)
 
     id = db.Column(db.Integer, primary_key=True)
     firstname = db.Column(db.String(25), nullable=False)
@@ -64,7 +64,7 @@ class User(db.Model, SerializerMixin):
 class Park(db.Model, SerializerMixin):
     __tablename__ = 'parks'
 
-    serialize_rules = ('-reviews.park', '-favorites.park')
+    serialize_rules = ('-reviews.park', '-favorites.park',)
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(25), nullable=False, unique=True)
