@@ -9,16 +9,25 @@ import Signup from "./Signup";
 import Login from "./Login";
 import AddNew from "./AddNew";
 import Authenticate from "./Authenticate";
+import UpdatePark from "./UpdatePark";
 
-// session.get("user_id")
+
 function App() {
   const [user, setUser] = useState(null);
   const [errors, setErrors] = useState([]);
   const [parks, setParks] = useState([])
+  const { id } = parks;
 
   useEffect(() => {
     fetchUser()
+    fetchParks()
   }, []);
+
+  const fetchParks = () => {
+    fetch("/parks")
+      .then(r => r.json())
+      .then(setParks)
+  }
 
   const fetchUser = () => {
     fetch("/checkSession")
@@ -30,13 +39,26 @@ function App() {
         }
       })
   }
+
 const updateUser = (user) => setUser(user)
+
 
 const addPark = (park) =>
     setParks((current) => [...current, park]);
 
+
+const handleUpdatePark = (updateParkObj) => {
+  const updatedParks = parks.map((park) => {
+    if(park.id === updateParkObj.id) {
+      return updateParkObj;
+    } else {
+      return park;
+    }
+  });
+  setParks(updatedParks)
+}
+
   if(!user) return(
-    
     <Router>
       <div>
       <NavBar updateUser={updateUser} />
@@ -52,19 +74,21 @@ const addPark = (park) =>
         </Route>
       </Switch>
       </div>
-    </Router>
-    
+    </Router> 
   )
   return (
     <Router>
     <div>
-      <Authenticate setUser={setUser} updateUser={updateUser}/>
+      <Authenticate setUser={setUser} updateUser={updateUser} parks={parks}/>
         <Switch>
           <Route exact path="/">
             <Home />
           </Route>
           <Route path="/parks/new">
             <AddNew addPark={addPark}/>
+          </Route>
+          <Route path='/parks/:id'>
+            <UpdatePark onUpdatePark={handleUpdatePark} id={id} parks={parks}/>
           </Route>
           <Route path="/parks">
             <ParkContainer />
@@ -79,117 +103,3 @@ const addPark = (park) =>
 }
 
 export default App;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import React, { useEffect, useState } from "react";
-// import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-
-// import ParkContainer from "./ParkContainer"
-// import NavBar from "./NavBar";
-// import Home from "./Home";
-// import ReviewsContainer from "./ReviewsContainer";
-// import Signup from "./Signup";
-// import Login from "./Login";
-// import AddNew from "./AddNew";
-
-// // session.get("user_id")
-// function App() {
-//   const [user, setUser] = useState(null);
-//   const [errors, setErrors] = useState([]);
-//   const [parks, setParks] = useState([])
-
-//   useEffect(() => {
-//     fetchUser()
-//   }, []);
-
-//   // useEffect(() => {
-//   //   fetch('/cookies')
-//   //     .then(r => r.json())
-//   //     .then(data => {
-//   //       console.log(data)
-//   //       console.log(document.cookie)
-//   //     })
-//   // }, []);
-
-//   const fetchUser = () => {
-//     fetch("/checkSession")
-//       .then(r => {
-//         if(r.ok){
-//           r.json().then(user => setUser(user))
-//         } else {
-//           r.json().then(error => setErrors(error))
-//         }
-//       })
-//   }
-// const updateUser = (user) => setUser(user)
-
-// const addPark = (park) =>
-//     setParks((current) => [...current, park]);
-
-//   if(!user) return(
-    
-//     <Router>
-//       <div>
-//       <Home />
-//       <NavBar updateUser={updateUser} />
-//       <Switch>
-//         <Route path="/login">
-//           <Login setUser={setUser} updateUser={updateUser}/>
-//         </Route>
-//         <Route path="/signup">
-//           <Signup setUser={setUser} updateUser={updateUser}/>
-//         </Route>
-//       </Switch>
-//       </div>
-//     </Router>
-    
-//   )
-//   return (
-//     <Router>
-//     <div>
-//       <NavBar updateUser={updateUser}/>
-//         <Switch>
-//           <Route exact path="/">
-//             <Home />
-//           </Route>
-//           <Route path="/parks/new">
-//             <AddNew addPark={addPark}/>
-//           </Route>
-//           <Route path="/parks">
-//             <ParkContainer />
-//           </Route>
-//           <Route path="/reviews">
-//             <ReviewsContainer />
-//           </Route>
-//           {/* <Route path="/signup">
-//             <Signup setUser={setUser} updateUser={updateUser} />
-//           </Route>
-//           <Route path="/login">
-//             <Login setUser={setUser} updateUser={updateUser} />
-//           </Route>  */}
-//         </Switch>
-//     </div>
-//     </Router>
-//   );
-// }
-
-// export default App;
