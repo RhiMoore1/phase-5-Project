@@ -49,7 +49,6 @@ function UpdatePark({ onUpdatePark }) {
                 console.log(formData)
             if (r.ok) {
               r.json().then((originalPark) => {
-                // updateUser(user)
                 console.log(originalPark)
                 history.push('/parks')
             

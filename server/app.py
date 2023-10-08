@@ -46,29 +46,7 @@ class Parks(Resource):
         )
     
         return response  
-    
 
-# ADD A PARK
-    # def post(self):
-    #     data = request.get_json()
-
-    #     new_park = Park(
-    #         name=data['name'],
-    #         description=data['description'],
-    #         location=data['location'],
-    #         image=data['image'],
-    #     )
-
-    #     db.session.add(new_park)
-    #     db.session.commit()
-
-    #     response_dict = new_park.to_dict()
-    #     response = make_response(
-    #         jsonify(response_dict),
-    #         200,
-    #         {"Content-Type": "application/json"}
-    #     )
-    #     return response
 api.add_resource(Parks, '/parks')
 
 
@@ -152,13 +130,12 @@ class ParkByID(Resource):
         )
         return response
 
-# recursion error #
+
 # UPDATE A PARK
     def patch(self, id):
 
         park = Park.query.filter_by(id=id).first()
     
-        # data = request.get_json()
         for attr in request.form:
             setattr(park, attr, request.form[attr])
             
@@ -170,12 +147,6 @@ class ParkByID(Resource):
         response = make_response(park_dict, 200)
 
         return response
-        # response = make_response(
-        #     jsonify(park.to_dict()),
-        #     200,
-        #     {"Content-Type": "application/json"}
-        # )
-        # return response, 200
 
 api.add_resource(ParkByID, '/parks/<int:id>')
 
@@ -240,15 +211,6 @@ class Reviews(Resource):
 
     def post(self):
         data = request.get_json()
-
-        
-        # user_id = get_authenticated_user_id()
-        # title = data.get('title')
-        # user_id = data.get('user_id')
-        # park_id = data.get('park_id')
-
-        # if not title or not user_id or not park_id:
-        #     return jsonify({"message": "Missing required data"}), 400
 
         new_review = Review(
             title=data['title'],
@@ -345,7 +307,6 @@ def expiration_date(delay):
 
 @app.route("/cookies", methods=['GET'])
 def cookies():
-    # import ipdb; ipdb.set_trace()
     resp = make_response({'message': 'Cookie route'}, 200)
     resp.set_cookie('new', 'cookie')
     resp.set_cookie('hello', 'world', expires=expiration_date(90), httponly=True)
