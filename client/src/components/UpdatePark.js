@@ -9,6 +9,7 @@ function UpdatePark({ onUpdatePark }) {
     const [image, setImage] = useState("");
     const [reviewTitle, setReviewTitle] = useState(""); 
     const [searchPark, setSearchPark] = useState("");
+    const [id, setId] = useState("")
     const history = useHistory()
 
     const handleSearchPark = (e) => {
@@ -27,7 +28,8 @@ function UpdatePark({ onUpdatePark }) {
             name,
             description,
             location,
-            image
+            image,
+            id
         },
             review: {
                 title: reviewTitle,
@@ -35,7 +37,7 @@ function UpdatePark({ onUpdatePark }) {
         };
         
 
-        fetch(`/parks/${searchPark}`, {
+        fetch(`/parks/${id}`, {
             method: 'PATCH',
             headers: {
                 "Content-Type": "application/json"
@@ -43,14 +45,15 @@ function UpdatePark({ onUpdatePark }) {
             body: JSON.stringify(formData)
         })
             .then((r) => {
+
                 console.log(formData)
             if (r.ok) {
-              r.json().then((user) => {
+              r.json().then((originalPark) => {
                 // updateUser(user)
-                console.log(user)
+                console.log(originalPark)
                 history.push('/parks')
             
-              }).then((updatedPark) => onUpdatePark(updatedPark));
+              }).then((formData) => handleUpdatePark(formData));
             }
           });
     }
@@ -65,8 +68,8 @@ function UpdatePark({ onUpdatePark }) {
                  <input
                     id='search'
                     type='text'
-                    value={searchPark}
-                    onChange={handleSearchPark}
+                    value={id}
+                    onChange={(e) => setId(e.target.value)}
                     placeholder='Search parks by ID...'
                 />
             </div>
